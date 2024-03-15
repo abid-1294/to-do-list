@@ -63,7 +63,9 @@ ul li{
     padding: 18px 8px 12px 50px;
     user-select: none;
     cursor: pointer;
-    position: relative; 
+    position: relative;
+    word-wrap: break-word;
+    max-width: calc(100% - 58px);
 }
 ul li::before{
     content: '';
@@ -96,7 +98,7 @@ ul li.done-task{
 }
 ul li span{
     position: absolute;
-    right: 0;
+    right: -30px;
     top: 5px;
     width: 40px;
     font-size: 22px;
@@ -104,8 +106,22 @@ ul li span{
     line-height: 40px;
     text-align: center;
     border-radius: 50%;
+    
 }
 
 ul li span:hover{
     background: #edeef0;
+    /* right: -20px; */
+}
+
+@media only screen and (max-width: 600px) {
+    .row {
+        flex-direction: column;
+    }
+    input {
+        margin-bottom: 15px;
+    }
+    button {
+        width: 50%;
+    }
 }
