@@ -8,7 +8,7 @@ function addTask() {
     } else {
         let li = document.createElement("li");
         // Include the task and time in the same line
-        li.innerHTML = `${inputBox.value} <p class="task-time">(${new Date(inputTime.value).toLocaleString()})</p>`;
+        li.innerHTML = `${inputBox.value} <p class="task-time" style="color:red; opacity:0.8;">(${new Date(inputTime.value).toLocaleString()})</p>`;
         listContainer.appendChild(li);
 
         let span = document.createElement("span");
@@ -29,15 +29,22 @@ function setTimer(taskTime, taskElement) {
 
     if (timeDifference > 0) {
         setTimeout(() => {
-            alert(`Time is up for: ${taskElement.textContent}`);
-            playSound();
+            playSound().then(() => {
+                alert(`Time is up for: ${taskElement.textContent}`);
+                taskElement.style.backgroundColor = "#c7c3c3";
+            }).catch((error) => {
+                console.error("Failed to play sound:", error);
+                alert(`Time is up for: ${taskElement.textContent}`);
+                taskElement.style.backgroundColor = "#c7c3c3";
+            });
         }, timeDifference);
     }
 }
 
 function playSound() {
     const audio = new Audio('../alarm.mp3');
-    audio.play();
+    // Preload the audio
+    return audio.play();
 }
 
 listContainer.addEventListener("click", function (e) {
